@@ -38,14 +38,32 @@ class WebViewController extends Controller {
 	 */
 	public function index() {
 		$bookmarkleturl = $this->urlgenerator->getAbsoluteURL('index.php/apps/bookmarks/bookmarklet');
-		$params = array('user' => $this->userId, 'bookmarkleturl' => $bookmarkleturl);
+		$navigationEntries = $this->getNavigationEntries();
+
+		$params = array(
+			'bookmarkleturl'   => $bookmarkleturl,
+			'navigationEntries' => $navigationEntries,
+		);
 
 		$policy = new ContentSecurityPolicy();
 		$policy->addAllowedFrameDomain("'self'");
 
 		$response = new TemplateResponse('bookmarks', 'main', $params);
 		$response->setContentSecurityPolicy($policy);
+
 		return $response;
+	}
+
+	protected function getNavigationEntries() {
+		$l = \OC::$server->getL10N('files');
+		$entries = [];
+		$entries[] = [
+			'id' => 'all',
+			'name' => (string) $l->t('All Bookmarks'),
+			'class' => 'navigationAllBookmarks'
+			//'url' => \OC::$server->getURLGenerator()->linkToRoute('bookmarks.bookmark.get_bookmarks'),
+		];
+		return $entries;
 	}
 
 	/**

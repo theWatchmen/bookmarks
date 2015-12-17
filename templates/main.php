@@ -35,14 +35,26 @@ function bookmarklet($bookmarkleturl) {
                 <input type="text" id="add_url" value="" placeholder="<?php p($l->t('Address')); ?>"/>
                 <button id="bookmark_add_submit" title="Add" class="icon-add"></button>
             </form>
+		</li>
+		<?php foreach ($_['navigationEntries'] as $entry) { ?>
+			<li>
+				<a class="<?php p($entry['class']) ?>" href=""><?php p($entry['name']); ?></a>
+			</li>
+		<?php } ?>
+		<li>
             <p id="tag_filter" class="open">
                 <input type="text" value="<?php if(isset($_['req_tag'])) p($_['req_tag']); else ""; ?>"/>
 
 
             </p>
             <input type="hidden" id="bookmarkFilterTag" value="<?php if(isset($_['req_tag'])) p($_['req_tag']); else ""; ?>" />
-            <label id="tag_select_label"><?php p($l->t('Filterable Tags')); ?></label>
         </li>
+		<li class="navigationTagTemplate hidden">
+			<a href=""></a>
+			<span class="utils">
+				<span class="count"></span>
+			</span>
+		</li>
         <li class="tag_list">
         </li>
     </ul>

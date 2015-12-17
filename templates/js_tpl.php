@@ -48,17 +48,27 @@
     </div>
 </script>
 <script type="text/html" id="tag_tmpl">
-    <li><a href="" class="tag"><&= escapeHTML(tag) &></a>
-        <div class="tags_actions">
-            <span class="tag_delete">
-                <img class="svg" src="<?php print_unescaped(OCP\image_path("", "actions/delete.svg")); ?>"
-                     title="<?php p($l->t('Delete')); ?>">
-            </span>
-            <span class="tag_edit">
-                <img class="svg" src="<?php print_unescaped(OCP\image_path("", "actions/rename.svg")); ?>"
-                     title="<?php p($l->t('Edit')); ?>">
-            </span>
-            <em><&= nbr &></em>
+    <li class="with-menu">
+        <a href="" class="">
+            <span class="title"><&= escapeHTML(tag) &></span>
+        </a>
+        <div class="app-navigation-entry-utils">
+            <ul>
+                <li class="app-navigation-entry-utils-counter"><&= nbr &></li>
+                <li class="app-navigation-entry-utils-menu-button svg"><button></button></li>
+            </ul>
+        </div>
+        <div class="app-navigation-entry-menu">
+            <ul>
+                <li><button class="icon-rename svg" title="<?php p($l->t('rename')); ?>"</button></li>
+                <li><button class="icon-delete svg" title="<?php p($l->t('delete')); ?>"></button></li>
+            </ul>
+        </div>
+        <div class="app-navigation-entry-edit">
+            <form>
+                <input class="edit" type="text" autofocus-on-insert>
+                <input type="submit" value="" class="action icon-checkmark svg">
+            </form>
         </div>
     </li>
 </script>

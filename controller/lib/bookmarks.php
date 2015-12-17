@@ -40,15 +40,14 @@ class Bookmarks {
 	 * @return Found Tags
 	 */
 	public static function findTags($userId, IDb $db, $filterTags = array(), $offset = 0, $limit = -1) {
-		$params = array_merge($filterTags, $filterTags);
+		$params = $filterTags;
 		array_unshift($params, $userId);
 		$not_in = '';
 		if (!empty($filterTags)) {
 			$exist_clause = " AND	exists (select 1 from `*PREFIX*bookmarks_tags`
 				`t2` where `t2`.`bookmark_id` = `t`.`bookmark_id` and `tag` = ?) ";
 
-			$not_in = ' AND `tag` not in (' . implode(',', array_fill(0, count($filterTags), '?')) . ')' .
-					str_repeat($exist_clause, count($filterTags));
+			$not_in = str_repeat($exist_clause, count($filterTags));
 		}
 		$sql = 'SELECT tag, count(*) as nbr from *PREFIX*bookmarks_tags t ' .
 				' WHERE EXISTS( SELECT 1 from *PREFIX*bookmarks bm where  t.bookmark_id  = bm.id and user_id = ?) ' .
@@ -56,6 +55,7 @@ class Bookmarks {
 				' GROUP BY `tag` ORDER BY `nbr` DESC ';
 
 		$query = $db->prepareQuery($sql, $limit, $offset);
+
 		$tags = $query->execute($params)->fetchAll();
 		return $tags;
 	}

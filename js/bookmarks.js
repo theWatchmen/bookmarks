@@ -24,6 +24,8 @@ $(document).ready(function () {
 		onTagFinishRemoved: filterTagsChanged,
 		placeholderText: t('bookmarks', 'Filter by tag')
 	}).tagit('option', 'onTagAdded', filterTagsChanged);
+	$('.navigationAllBookmarks').click(resetTagFilter);
+
 	getBookmarks();
 });
 
@@ -101,9 +103,37 @@ function addFilterTag(event) {
 	$('#tag_filter input').tagit('createTag', $(this).text());
 }
 
+function resetTagFilter() {
+	$('#tag_filter input').tagit('removeAll');
+}
+
 function updateTagsList(tag) {
+	var selectedTags = $('#tag_filter input').tagit('assignedTags');
+
 	var html = tmpl("tag_tmpl", tag);
 	$('.tag_list').append(html);
+	$('.tag_list li').each(function(){
+		var tagName = $(this).find('a span').text();
+		var inArrayResult =  $.inArray(tagName, selectedTags);
+		console.warn(inArrayResult);
+		console.warn(tagName);
+		console.log(this);
+		if(inArrayResult > -1) {
+			$(this).addClass('active');
+		}
+	});
+
+	return;
+
+	var $entry = $('.navigationTagTemplate')
+		.clone();
+	$entry
+		.removeClass('hidden')
+		.removeClass('navigationTagTemplate')
+		.addClass('navigationTagEntry');
+	$entry.find('a').text(tag.tag);
+	$entry.find('.count').text(tag.nbr);
+	$entry.appendTo($('#navigation-list'));
 }
 
 function filterTagsChanged()
@@ -134,8 +164,9 @@ function getBookmarks() {
 				}
 				$('.tag_list .tag_edit').click(renameTag);
 				$('.tag_list .tag_delete').click(deleteTag);
-				$('.tag_list a.tag').click(addFilterTag);
+				$('.navigationTagEntry a').click(addFilterTag);
 
+				$('.with-menu a').bind('click', addFilterTag);
 
 			}
 		});
