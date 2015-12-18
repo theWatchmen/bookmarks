@@ -5,7 +5,25 @@ var bookmarksSorting = 'bookmarks_sorting_recent';
 var fullTags = [];
 var ajaxCallCount = 0;
 
+var allTagsCollection;
+var availableTagsCollection;
+var selectedTagsCollection;
+var availableTagsList;
+var selectedTagsList;
+
 $(document).ready(function () {
+	allTagsCollection       = new OCA.Bookmarks.TagCollection();
+	availableTagsCollection = new OCA.Bookmarks.TagCollection();
+	selectedTagsCollection  = new OCA.Bookmarks.TagCollection();
+	availableTagsList       = new OCA.Bookmarks.TagListView({
+		model: availableTagsCollection,
+		id: 'availableTagsList'
+	});
+	selectedTagsList        = new OCA.Bookmarks.TagListView({
+		model: selectedTagsCollection,
+		id: 'selectedTagsList'
+	});
+
 	getTags();
 	watchUrlField();
 	$('#bm_import').change(attachSettingEvent);
@@ -34,6 +52,7 @@ function getTags() {
 		url: 'tag',
 		success: function (result) {
 			fullTags = result;
+			console.warn(fullTags);
 		},
 		async: false
 	});
@@ -115,9 +134,9 @@ function updateTagsList(tag) {
 	$('.tag_list li').each(function(){
 		var tagName = $(this).find('a span').text();
 		var inArrayResult =  $.inArray(tagName, selectedTags);
-		console.warn(inArrayResult);
-		console.warn(tagName);
-		console.log(this);
+//		console.warn(inArrayResult);
+//		console.warn(tagName);
+//		console.log(this);
 		if(inArrayResult > -1) {
 			$(this).addClass('active');
 		}

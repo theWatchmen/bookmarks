@@ -1,4 +1,7 @@
 <?php
+script('bookmarks', 'tagModel');
+script('bookmarks', 'tagCollection');
+script('bookmarks', 'tagListView');
 script('bookmarks', 'settings');
 script('bookmarks', 'bookmarks');
 style('bookmarks', 'bookmarks');
@@ -44,8 +47,6 @@ function bookmarklet($bookmarkleturl) {
 		<li>
             <p id="tag_filter" class="open">
                 <input type="text" value="<?php if(isset($_['req_tag'])) p($_['req_tag']); else ""; ?>"/>
-
-
             </p>
             <input type="hidden" id="bookmarkFilterTag" value="<?php if(isset($_['req_tag'])) p($_['req_tag']); else ""; ?>" />
         </li>
@@ -55,6 +56,9 @@ function bookmarklet($bookmarkleturl) {
 				<span class="count"></span>
 			</span>
 		</li>
+        <li class="selected_tags_list">
+        </li>
+        <hr>
         <li class="tag_list">
         </li>
     </ul>
