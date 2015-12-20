@@ -63,4 +63,19 @@ class TagsController extends ApiController {
 		return new JSONResponse($tags);
 	}
 
+	/**
+	 * @NoAdminRequired
+	 *
+	 * @param string $tag
+	 * @return JSONResponse
+	 */
+	public function relatedTags($tag = '') {
+		header("Cache-Control: no-cache, must-revalidate");
+		header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
+
+		$tags = Bookmarks::analyzeTagRequest($tag);
+		$qtags = Bookmarks::findTags($this->userId, $this->db, $tags);
+		return new JSONResponse(array('data' => $qtags, 'status' => 'success'));
+	}
+
 }

@@ -34,9 +34,12 @@ $application->registerRoutes($this, array('routes' => array(
 		array('name' => 'bookmark#click_bookmark', 'url' => '/bookmark/click', 'verb' => 'POST'),
 		array('name' => 'bookmark#export_bookmark', 'url' => '/bookmark/export', 'verb' => 'GET'),
 		array('name' => 'bookmark#import_bookmark', 'url' => '/bookmark/import', 'verb' => 'POST'),
+
 		array('name' => 'tags#full_tags', 'url' => '/tag', 'verb' => 'GET'),
 		array('name' => 'tags#rename_tag', 'url' => '/tag', 'verb' => 'POST'),
 		array('name' => 'tags#delete_tag', 'url' => '/tag', 'verb' => 'DELETE'),
+		['name' => 'tags#related_tags', 'url' => '/relatedTags', 'verb' => 'GET'],
+
 		//Public Rest Api
 		array('name' => 'public#return_as_json', 'url' => '/public/rest/v1/bookmark', 'verb' => 'GET'),
 		//Legacy Routes

@@ -32,7 +32,7 @@ class Bookmarks {
 
 	/**
 	 * @brief Finds all tags for bookmarks
-	 * @param $userId UserId
+	 * @param string $userId UserId
 	 * @param IDb $db Database Interface
 	 * @param filterTags array of tag to look for if empty then every tag
 	 * @param offset integer offset
@@ -104,7 +104,7 @@ class Bookmarks {
 
 	/**
 	 * @brief Finds all bookmarks, matching the filter
-	 * @param $userid UserId
+	 * @param string $userid UserId
 	 * @param IDb $db Database Interface
 	 * @param int $offset offset
 	 * @param string $sqlSortColumn result with this column
@@ -338,7 +338,7 @@ class Bookmarks {
 
 	/**
 	 * @brief Delete a tag
-	 * @param $userid UserId
+	 * @param string $userid UserId
 	 * @param IDb $db Database Interface
 	 * @param string $old Tag Name to delete
 	 * @return boolean Success of operation
@@ -587,8 +587,8 @@ class Bookmarks {
 
 	/**
 	 * @brief Seperate Url String at comma charachter
-	 * @param $line String of Tags
-	 * @return array Array of Tags
+	 * @param string $line String of Tags
+	 * @return string[] Array of Tags
 	 * */
 	public static function analyzeTagRequest($line) {
 		$tags = explode(',', $line);

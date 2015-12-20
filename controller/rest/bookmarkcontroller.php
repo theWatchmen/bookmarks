@@ -40,27 +40,26 @@ class BookmarkController extends ApiController {
 	}
 
 	/**
+	 * returns a list of bookmarks
+	 *
 	 * @NoAdminRequired
+	 * @param string $tag
+	 * @param int $page
+	 * @param string $sort
+	 * @return JSONResponse
 	 */
-	public function getBookmarks($type = "bookmark", $tag = '', $page = 0, $sort = "bookmarks_sorting_recent") {
+	public function getBookmarks($tag = '', $page = 0, $sort = "bookmarks_sorting_recent") {
+		$filterTag = Bookmarks::analyzeTagRequest($tag);
 
-		if ($type == 'rel_tags') {
-			$tags = Bookmarks::analyzeTagRequest($tag);
-			$qtags = Bookmarks::findTags($this->userId, $this->db, $tags);
-			return new JSONResponse(array('data' => $qtags, 'status' => 'success'));
-		} else { // type == bookmark
-			$filterTag = Bookmarks::analyzeTagRequest($tag);
+		$offset = $page * 10;
 
-			$offset = $page * 10;
-
-			if ($sort == 'bookmarks_sorting_clicks') {
-				$sqlSortColumn = 'clickcount';
-			} else {
-				$sqlSortColumn = 'lastmodified';
-			}
-			$bookmarks = Bookmarks::findBookmarks($this->userId, $this->db, $offset, $sqlSortColumn, $filterTag, true);
-			return new JSONResponse(array('data' => $bookmarks, 'status' => 'success'));
+		if ($sort == 'bookmarks_sorting_clicks') {
+			$sqlSortColumn = 'clickcount';
+		} else {
+			$sqlSortColumn = 'lastmodified';
 		}
+		$bookmarks = Bookmarks::findBookmarks($this->userId, $this->db, $offset, $sqlSortColumn, $filterTag, true);
+		return new JSONResponse(array('data' => $bookmarks, 'status' => 'success'));
 	}
 
 	/**

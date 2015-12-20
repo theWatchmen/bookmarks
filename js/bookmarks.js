@@ -174,8 +174,8 @@ function getBookmarks() {
 
 		$.ajax({
 			type: 'GET',
-			url: 'bookmark',
-			data: {type: 'rel_tags', tag: $('#bookmarkFilterTag').val(), page: bookmarksPage, sort: bookmarksSorting},
+			url: 'relatedTags',
+			data: {tag: $('#bookmarkFilterTag').val(), page: bookmarksPage, sort: bookmarksSorting},
 			success: function (tags) {
 				$('.tag_list').empty();
 				for (var i in tags.data) {
@@ -193,7 +193,7 @@ function getBookmarks() {
 	$.ajax({
 		type: 'GET',
 		url: 'bookmark',
-		data: {type: 'bookmark', tag: $('#bookmarkFilterTag').val(), page: bookmarksPage, sort: bookmarksSorting},
+		data: {tag: $('#bookmarkFilterTag').val(), page: bookmarksPage, sort: bookmarksSorting},
 		complete: function () {
 			decreaseAjaxCallCount();
 		},
