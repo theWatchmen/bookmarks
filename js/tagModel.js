@@ -11,20 +11,7 @@
 (function() {
 
 	var TagModel = OC.Backbone.Model.extend({
-		idAttribute: 'id',
-		defaults: {
-			label: '',
-			numberOfBookmarks: 0
-		},
-
-		setLabel: function(label) {
-			this.set({label: label});
-		},
-
-		setNumberOfBookmarks: function(nob) {
-			this.set({numberOfBookmarks: nob});
-		}
-
+		idAttribute: 'id'
 	});
 
 	OCA.Bookmarks = OCA.Bookmarks || {};

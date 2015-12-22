@@ -1,13 +1,17 @@
 <?php
+script('bookmarks', '3rdparty/tag-it');
+script('bookmarks', '3rdparty/js_tpl');
+
 script('bookmarks', 'tagModel');
 script('bookmarks', 'tagCollection');
 script('bookmarks', 'tagListView');
+script('bookmarks', 'tagFilterView');
+script('bookmarks', 'app');
+
 script('bookmarks', 'settings');
 script('bookmarks', 'bookmarks');
 style('bookmarks', 'bookmarks');
 
-script('bookmarks', '3rdparty/tag-it');
-script('bookmarks', '3rdparty/js_tpl');
 style('bookmarks', '3rdparty/jquery.tagit');
 
 /**

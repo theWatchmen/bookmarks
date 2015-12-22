@@ -12,7 +12,15 @@
 
 	var TagCollection = OC.Backbone.Collection.extend({
 		model: OCA.Bookmarks.TagModel,
-		url: 'tag'
+		url: 'relatedTags',
+
+		getLabels: function () {
+			var labels = [];
+			_.each(this.models, function(model) {
+				this.push(model.get('tag'));
+			}, labels);
+			return labels;
+		}
 
 	});
 

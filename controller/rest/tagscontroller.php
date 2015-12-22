@@ -75,7 +75,7 @@ class TagsController extends ApiController {
 
 		$tags = Bookmarks::analyzeTagRequest($tag);
 		$qtags = Bookmarks::findTags($this->userId, $this->db, $tags);
-		return new JSONResponse(array('data' => $qtags, 'status' => 'success'));
+		return new JSONResponse($qtags);
 	}
 
 }

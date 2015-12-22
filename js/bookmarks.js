@@ -2,29 +2,9 @@ var bookmarksPage = 0;
 var bookmarksLoading = false;
 var dialog;
 var bookmarksSorting = 'bookmarks_sorting_recent';
-var fullTags = [];
 var ajaxCallCount = 0;
 
-var allTagsCollection;
-var availableTagsCollection;
-var selectedTagsCollection;
-var availableTagsList;
-var selectedTagsList;
-
 $(document).ready(function () {
-	allTagsCollection       = new OCA.Bookmarks.TagCollection();
-	availableTagsCollection = new OCA.Bookmarks.TagCollection();
-	selectedTagsCollection  = new OCA.Bookmarks.TagCollection();
-	availableTagsList       = new OCA.Bookmarks.TagListView({
-		model: availableTagsCollection,
-		id: 'availableTagsList'
-	});
-	selectedTagsList        = new OCA.Bookmarks.TagListView({
-		model: selectedTagsCollection,
-		id: 'selectedTagsList'
-	});
-
-	getTags();
 	watchUrlField();
 	$('#bm_import').change(attachSettingEvent);
 	$('#add_url').on('keydown keyup change click', watchUrlField);
@@ -36,27 +16,10 @@ $(document).ready(function () {
 		}
 	});
 	$('.bookmarks_list').scroll(updateOnBottom).empty();
-	$('#tag_filter input').tagit({
-		allowSpaces: true,
-		availableTags: fullTags,
-		onTagFinishRemoved: filterTagsChanged,
-		placeholderText: t('bookmarks', 'Filter by tag')
-	}).tagit('option', 'onTagAdded', filterTagsChanged);
 	$('.navigationAllBookmarks').click(resetTagFilter);
 
 	getBookmarks();
 });
-
-function getTags() {
-	jQuery.ajax({
-		url: 'tag',
-		success: function (result) {
-			fullTags = result;
-			console.warn(fullTags);
-		},
-		async: false
-	});
-}
 
 var formatString = (function () {
 	var replacer = function (context) {
@@ -178,8 +141,8 @@ function getBookmarks() {
 			data: {tag: $('#bookmarkFilterTag').val(), page: bookmarksPage, sort: bookmarksSorting},
 			success: function (tags) {
 				$('.tag_list').empty();
-				for (var i in tags.data) {
-					updateTagsList(tags.data[i]);
+				for (var i in tags) {
+					updateTagsList(tags[i]);
 				}
 				$('.tag_list .tag_edit').click(renameTag);
 				$('.tag_list .tag_delete').click(deleteTag);
@@ -318,7 +281,7 @@ function editBookmark() {
 	var rec_form = record.next().find('form');
 	rec_form.find('.bookmark_form_tags ul').tagit({
 		allowSpaces: true,
-		availableTags: fullTags,
+		availableTags: OCA.Bookmarks.App.allTagsCollection.getLabels(),
 		placeholderText: t('bookmarks', 'Tags')
 	});
 
