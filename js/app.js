@@ -57,9 +57,14 @@
 		tagFilterView: null,
 
 		/**
-		 * @member OCA.Bookmarks.SettinsView
+		 * @member OCA.Bookmarks.SettingsView
 		 */
 		settingsView: null,
+
+		/**
+		 * @member OCA.Bookmarks.AddBookmarkView
+		 */
+		addBookmarkView: null,
 
 		/**
 		 * Initializes the bookmarks app
@@ -86,6 +91,11 @@
 			this.settingsView            = new OCA.Bookmarks.SettingsView({
 				el: '#app-settings',
 				id: 'appSettings'
+			});
+
+			this.addBookmarkView         = new OCA.Bookmarks.AddBookmarkView({
+				el: '#add_form',
+				id: 'addBookmark'
 			});
 
 			this.allTagsCollection.fetch();

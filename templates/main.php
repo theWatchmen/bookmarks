@@ -3,9 +3,11 @@ script('bookmarks', '3rdparty/tag-it');
 script('bookmarks', '3rdparty/js_tpl');
 
 script('bookmarks', 'tagModel');
+script('bookmarks', 'bookmarkModel');
 script('bookmarks', 'tagCollection');
 script('bookmarks', 'tagListView');
 script('bookmarks', 'tagFilterView');
+script('bookmarks', 'addBookmarkView');
 script('bookmarks', 'settingsView');
 script('bookmarks', 'app');
 

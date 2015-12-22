@@ -5,8 +5,6 @@ var bookmarksSorting = 'bookmarks_sorting_recent';
 var ajaxCallCount = 0;
 
 $(document).ready(function () {
-	watchUrlField();
-	$('#add_url').on('keydown keyup change click', watchUrlField);
 	$('.bookmarks_list').scroll(updateOnBottom).empty();
 	$('.navigationAllBookmarks').click(resetTagFilter);
 
@@ -156,59 +154,6 @@ function getBookmarks() {
 			bookmarksLoading = false;
 			if (bookmarks.data.length) {
 				updateOnBottom();
-			}
-		}
-	});
-}
-
-function watchUrlField() {
-	var form = $('#add_form');
-	var el = $('#add_url');
-	var button = $('#bookmark_add_submit');
-	form.unbind('submit');
-	if (!acceptUrl(el.val())) {
-		form.bind('submit', function (e) {
-			e.preventDefault();
-		});
-		button.addClass('disabled');
-	}
-	else {
-		button.removeClass('disabled');
-		form.bind('submit', addBookmark);
-	}
-}
-
-function acceptUrl(url) {
-	return url.replace(/^\s+/g, '').replace(/\s+$/g, '') !== '';
-}
-
-function addBookmark(event) {
-	event.preventDefault();
-	var url = $('#add_url').val();
-	//If trim is empty
-	if (!acceptUrl(url)) {
-		return;
-	}
-
-	$('#add_url').val('');
-	var bookmark = {url: url, description: '', title: '', from_own: 0, added_date: new Date()};
-	increaseAjaxCallCount();
-	$.ajax({
-		type: 'POST',
-		url: 'bookmark',
-		data: bookmark,
-		complete: function () {
-			decreaseAjaxCallCount();
-		},
-		success: function (data) {
-			if (data.status === 'success') {
-				// First remove old BM if exists
-				$('.bookmark_single').filterAttr('data-id', data.item.id).remove();
-
-				var bookmark = $.extend({}, bookmark, data.item);
-				updateBookmarksList(bookmark, 'prepend');
-				checkEmpty();
-				watchUrlField();
 			}
 		}
 	});
