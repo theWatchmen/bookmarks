@@ -6,9 +6,9 @@ script('bookmarks', 'tagModel');
 script('bookmarks', 'tagCollection');
 script('bookmarks', 'tagListView');
 script('bookmarks', 'tagFilterView');
+script('bookmarks', 'settingsView');
 script('bookmarks', 'app');
 
-script('bookmarks', 'settings');
 script('bookmarks', 'bookmarks');
 style('bookmarks', 'bookmarks');
 

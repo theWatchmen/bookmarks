@@ -22,7 +22,7 @@
 	}
 
 	/**
-	 * @namespace OCA.Files.App
+	 * @namespace OCA.Bookmarks.App
 	 */
 	OCA.Bookmarks.App = {
 
@@ -57,6 +57,11 @@
 		tagFilterView: null,
 
 		/**
+		 * @member OCA.Bookmarks.SettinsView
+		 */
+		settingsView: null,
+
+		/**
 		 * Initializes the bookmarks app
 		 */
 		initialize: function() {
@@ -76,6 +81,11 @@
 			this.tagFilterView           = new OCA.Bookmarks.TagFilterView({
 				collection: this.allTagsCollection,
 				id: 'tagitManager'
+			});
+
+			this.settingsView            = new OCA.Bookmarks.SettingsView({
+				el: '#app-settings',
+				id: 'appSettings'
 			});
 
 			this.allTagsCollection.fetch();

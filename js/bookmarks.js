@@ -6,15 +6,7 @@ var ajaxCallCount = 0;
 
 $(document).ready(function () {
 	watchUrlField();
-	$('#bm_import').change(attachSettingEvent);
 	$('#add_url').on('keydown keyup change click', watchUrlField);
-	$('#app-settings').on('click keydown', toggleSettings);
-	$('#bm_export').click(exportBm);
-	$('#emptycontent-setting').click(function () {
-		if (!$('#app-settings').hasClass('open')) {
-			$('#app-settings').click();
-		}
-	});
 	$('.bookmarks_list').scroll(updateOnBottom).empty();
 	$('.navigationAllBookmarks').click(resetTagFilter);
 
@@ -57,12 +49,6 @@ function updateLoadingAnimation() {
 	}
 }
 
-function watchClickInSetting(e) {
-	if ($('#app-settings').find($(e.target)).length === 0) {
-		toggleSettings();
-	}
-}
-
 function checkURL(url) {
 	if (url.substring(0, 3) === "htt") {
 		return url;
@@ -70,16 +56,6 @@ function checkURL(url) {
 	return "http://" + url;
 }
 
-function toggleSettings() {
-	if ($('#app-settings').hasClass('open')) { //Close
-		$('#app-settings').switchClass("open", "");
-		$('body').unbind('click', watchClickInSetting);
-	}
-	else {
-		$('#app-settings').switchClass("", "open");
-		$('body').bind('click', watchClickInSetting);
-	}
-}
 function addFilterTag(event) {
 	event.preventDefault();
 	$('#tag_filter input').tagit('createTag', $(this).text());
