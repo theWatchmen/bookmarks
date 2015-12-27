@@ -44,13 +44,6 @@ function updateLoadingAnimation() {
 	}
 }
 
-function checkURL(url) {
-	if (url.substring(0, 3) === "htt") {
-		return url;
-	}
-	return "http://" + url;
-}
-
 function addFilterTag(event) {
 	event.preventDefault();
 	$('#tag_filter input').tagit('createTag', $(this).text());
