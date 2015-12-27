@@ -13,23 +13,30 @@
 	var TagFilterView = OC.Backbone.View.extend({
 
 		initialize: function(options) {
+			_.bindAll(this, 'reset');
 			var view = this;
 
 			this.collection.on('add remove', function() { view.render() });
 
-			$('#tag_filter input').tagit({
+			this.$el.tagit({
 				allowSpaces: true
 			});
+
+			$('.navigationAllBookmarks').on('click', this.reset);
 		},
 
 		render: function() {
 			console.warn('RUNNING');
-			$('#tag_filter input').tagit({
+			this.$el.tagit({
 				allowSpaces: true,
 				availableTags: this.collection.getLabels(),
 				onTagFinishRemoved: filterTagsChanged,
 				placeholderText: t('bookmarks', 'Filter by tag')
 			}).tagit('option', 'onTagAdded', filterTagsChanged);
+		},
+
+		reset: function() {
+			this.$el.tagit('removeAll');
 		}
 	});
 

@@ -85,7 +85,8 @@
 
 			this.tagFilterView           = new OCA.Bookmarks.TagFilterView({
 				collection: this.allTagsCollection,
-				id: 'tagitManager'
+				id: 'tagitManager',
+				el: '#tag_filter input'
 			});
 
 			this.settingsView            = new OCA.Bookmarks.SettingsView({
@@ -100,6 +101,9 @@
 
 			this.allTagsCollection.fetch();
 			console.warn('INiT DONE');
+
+			//FIXME: do be done by bookmarks collection
+			getBookmarks();
 		}
 	};
 })();

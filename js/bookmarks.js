@@ -6,9 +6,6 @@ var ajaxCallCount = 0;
 
 $(document).ready(function () {
 	$('.bookmarks_list').scroll(updateOnBottom).empty();
-	$('.navigationAllBookmarks').click(resetTagFilter);
-
-	getBookmarks();
 });
 
 var formatString = (function () {
@@ -57,10 +54,6 @@ function checkURL(url) {
 function addFilterTag(event) {
 	event.preventDefault();
 	$('#tag_filter input').tagit('createTag', $(this).text());
-}
-
-function resetTagFilter() {
-	$('#tag_filter input').tagit('removeAll');
 }
 
 function updateTagsList(tag) {
