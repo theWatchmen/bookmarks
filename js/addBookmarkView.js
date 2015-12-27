@@ -13,14 +13,15 @@
 	var AddBookmarkView = OC.Backbone.View.extend({
 
 		initialize: function() {
-			_.bindAll(this, 'onAddBookmark', 'onTypeUrl', 'onAddBookmarkError');
+			_.bindAll(this, 'onAddBookmark', 'updateAddButtonState', 'onAddBookmarkError');
 
 			view = this;
 
-			this.$el.find('#add_url').on('keydown keyup change click', view.onTypeUrl);
+			this.$el.find('#add_url').on('keydown keyup change click', view.updateAddButtonState);
+			this.updateAddButtonState();
 		},
 
-		onTypeUrl: function() {
+		updateAddButtonState: function() {
 			var button = this.$el.find('#bookmark_add_submit');
 			this.$el.off('submit');
 			if(!this.$el.find('#add_url').val().trim()) {
@@ -77,7 +78,7 @@
 		resetElements: function() {
 			this.$el.find('#bookmark_add_submit').addClass('icon-add');
 			this.$el.find('#bookmark_add_submit').removeClass('icon-loading-small');
-			this.onTypeUrl();
+			this.updateAddButtonState();
 		}
 
 
