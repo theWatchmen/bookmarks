@@ -556,6 +556,8 @@ class Bookmarks {
 			$request = \OC::$server->getHTTPClientService()->newClient()->get($url);
 			$page = $request->getBody();
 			$contentType = $request->getHeader('Content-Type');
+		} catch (\GuzzleHttp\Exception\RequestException $e) {
+			\OCP\Util::writeLog('bookmarks', $e, \OCP\Util::WARN);
 		} catch (\Exception $e) {
 			throw $e;
 		}
